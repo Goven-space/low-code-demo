@@ -1,0 +1,213 @@
+{
+  "packages": [
+    {
+      "package": "moment",
+      "version": "2.24.0",
+      "urls": [
+        "https://g.alicdn.com/mylib/moment/2.24.0/min/moment.min.js"
+      ],
+      "library": "moment"
+    },
+    {
+      "package": "lodash",
+      "library": "_",
+      "urls": [
+        "https://g.alicdn.com/platform/c/lodash/4.6.1/lodash.min.js"
+      ]
+    },
+    {
+      "package": "iconfont-icons",
+      "urls": "//at.alicdn.com/t/font_2369445_ukrtsovd92r.js"
+    },
+    {
+      "package": "@ant-design/icons",
+      "version": "4.7.0",
+      "urls": [
+        "//g.alicdn.com/code/npm/@ali/ant-design-icons-cdn/4.5.0/index.umd.min.js"
+      ],
+      "library": "icons"
+    },
+    {
+      "package": "antd",
+      "version": "4.19.5",
+      "urls": [
+        "//g.alicdn.com/code/lib/antd/4.19.4/antd.min.js",
+        "//g.alicdn.com/code/lib/antd/4.19.4/antd.min.css"
+      ],
+      "library": "antd"
+    },
+    {
+      "title": "fusion组件库",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "urls": [
+        "https://g.alicdn.com/code/lib/alifd__next/1.23.18/next.min.css",
+        "https://g.alicdn.com/code/lib/alifd__next/1.23.18/next-with-locales.min.js"
+      ],
+      "library": "Next"
+    },
+    {
+      "title": "NextTable",
+      "package": "NextTable",
+      "version": "1.0.1",
+      "urls": [
+        "/assets/next-table.js",
+        "/assets/next-table.css"
+      ],
+      "library": "NextTable"
+    },
+    {
+      "package": "@alilc/antd-lowcode-materials",
+      "version": "1.0.6",
+      "library": "AntdLowcode",
+      "urls": [
+        "https://alifd.alicdn.com/npm/@alilc/antd-lowcode-materials@1.0.6/build/lowcode/view.js",
+        "https://alifd.alicdn.com/npm/@alilc/antd-lowcode-materials@1.0.6/build/lowcode/view.css"
+      ],
+      "editUrls": [
+        "https://alifd.alicdn.com/npm/@alilc/antd-lowcode-materials@1.0.6/build/lowcode/view.js",
+        "https://alifd.alicdn.com/npm/@alilc/antd-lowcode-materials@1.0.6/build/lowcode/view.css"
+      ]
+    },
+    {
+      "package": "@alilc/lowcode-materials",
+      "version": "1.0.1",
+      "library": "AlilcLowcodeMaterials",
+      "urls": [
+        "/assets/AlilcLowcodeMaterials.js",
+        "/assets/AlilcLowcodeMaterials.css"
+      ],
+      "editUrls": [
+        "/assets/view.js",
+        "/assets/view.css"
+      ]
+    },
+    {
+      "package": "@alifd/pro-layout",
+      "version": "1.0.1-beta.5",
+      "library": "AlifdProLayout",
+      "urls": [
+        "/assets/AlifdProLayout.js",
+        "/assets/AlifdProLayout.css"
+      ],
+      "editUrls": [
+        "/assets/pro-layout-view.js",
+        "/assets/pro-layout-view.css"
+      ]
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "1.0.5-beta.1",
+      "library": "AlifdFusionUi",
+      "urls": [
+        "/assets/AlifdFusionUi.js",
+        "/assets/AlifdFusionUi.css"
+      ],
+      "editUrls": [
+        "/assets/fusion-ui-view.js",
+        "/assets/fusion-ui-view.css"
+      ]
+    },
+    {
+      "package": "rc-cus-form",
+      "version": "0.1.5",
+      "library": "rcCusForm",
+      "urls": [
+        "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/render/default/view.js",
+        "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/render/default/view.css"
+      ],
+      "editUrls": [
+        "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/view.js",
+        "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/view.css"
+      ],
+      "advancedUrls": {
+        "default": [
+          "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/render/default/view.js",
+          "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/render/default/view.css"
+        ]
+      },
+      "advancedEditUrls": {}
+    }
+  ],
+  "components": [
+    {
+      "exportName": "AlilcAntdLowcodeMaterialsMeta",
+      "npm": {
+        "package": "@alilc/antd-lowcode-materials",
+        "version": "1.0.6"
+      },
+      "url": "https://alifd.alicdn.com/npm/@alilc/antd-lowcode-materials@1.0.6/build/lowcode/meta.js",
+      "urls": {
+        "default": "https://alifd.alicdn.com/npm/@alilc/antd-lowcode-materials@1.0.6/build/lowcode/meta.js"
+      }
+    },
+    {
+      "exportName": "AlilcLowcodeMaterialsMeta",
+      "npm": {
+        "package": "@alilc/lowcode-materials"
+      },
+      "url": "/assets/meta.js",
+      "urls": {
+        "default": "/assets/meta.js",
+        "design": "/assets/meta.design.js"
+      }
+    },
+    {
+      "exportName": "AlifdProLayoutMeta",
+      "npm": {
+        "package": "@alifd/pro-layout",
+        "version": "1.0.1-beta.5"
+      },
+      "url": "/assets/pro-layout-meta.js",
+      "urls": {
+        "default": "/assets/pro-layout-meta.js",
+        "design": "/assets/pro-layout-meta.design.js"
+      }
+    },
+    {
+      "exportName": "AlifdFusionUiMeta",
+      "npm": {
+        "package": "@alifd/fusion-ui"
+      },
+      "url": "/assets/fusion-ui-meta.js",
+      "urls": {
+        "default": "/assets/fusion-ui-meta.js",
+        "design": "/assets/fusion-ui-meta.design.js"
+      }
+    },
+    {
+      "exportName": "RcCusFormMeta",
+      "npm": {
+        "package": "rc-cus-form",
+        "version": "0.1.5"
+      },
+      "url": "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/meta.js",
+      "urls": {
+        "default": "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/meta.js"
+      },
+      "advancedUrls": {
+        "default": [
+          "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/meta.js"
+        ]
+      }
+    }
+  ],
+  "sort": {
+    "groupList": [
+      "精选组件",
+      "原子组件"
+    ],
+    "categoryList": [
+      "通用",
+      "导航",
+      "信息输入",
+      "信息展示",
+      "信息反馈"
+    ]
+  },
+  "groupList": [
+    "精选组件",
+    "原子组件"
+  ],
+  "ignoreComponents": {}
+}

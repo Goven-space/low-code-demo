@@ -18,39 +18,39 @@ import CodeEditor from "@alilc/lowcode-plugin-code-editor";
 import ManualPlugin from "@alilc/lowcode-plugin-manual";
 import Inject, { injectAssets } from '@alilc/lowcode-plugin-inject';
 import SimulatorResizer from '@alilc/lowcode-plugin-simulator-select';
+import { Button, Breadcrumb } from '@alifd/next';
+import AxiosDataSource from '../component/AxiosDataSource';
+import VersionManager from '../component/VersionManager';
+import publishVersion from '../component/publishVersion';
+import { getCookie } from '../tool';
 
 // 注册到引擎
 import TitleSetter from '@alilc/lowcode-setter-title';
 import BehaviorSetter from '../setters/behavior-setter';
 import CustomSetter from '../setters/custom-setter';
 import Logo from '../sample-plugins/logo';
-import { deleteHiddenTransducer } from '../sample-plugins/delete-hidden-transducer';
 
 import {
   loadIncrementalAssets,
   getPageSchema,
   saveSchema,
   resetSchema,
-  preview,
+  preview
 } from './utils';
-import assets from './assets.json'
-import { registerRefProp } from 'src/sample-plugins/set-ref-prop';
+import assets from '../../public/assets.json';
+import schema from '../scenarios/basic-antd/schema.json';
 
 export default async function registerPlugins() {
-  await plugins.register(ManualPlugin);
+  // await plugins.register(ManualPlugin);
 
   await plugins.register(Inject);
-
-  await plugins.register(registerRefProp);
-
-  await plugins.register(deleteHiddenTransducer);
 
   // plugin API 见 https://lowcode-engine.cn/docV2/ibh9fh
   SchemaPlugin.pluginName = 'SchemaPlugin';
   await plugins.register(SchemaPlugin);
 
-  SimulatorResizer.pluginName = 'SimulatorResizer';
-  plugins.register(SimulatorResizer);
+  // SimulatorResizer.pluginName = 'SimulatorResizer';
+  // plugins.register(SimulatorResizer);
 
   const editorInit = (ctx: ILowCodePluginContext) => {
     return {
@@ -65,10 +65,9 @@ export default async function registerPlugins() {
         // 设置物料描述
         const { material, project } = ctx;
 
-        await material.setAssets(await injectAssets(assets));
+        material.setAssets(await injectAssets(assets));
 
-        const schema = await getPageSchema();
-
+        const schema = await getPageSchema(0);
         // 加载 schema
         project.openDocument(schema);
       },
@@ -89,9 +88,50 @@ export default async function registerPlugins() {
           name: 'logo',
           content: Logo,
           contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
+            logo: require('../assets/logo.png'),
             href: 'https://lowcode-engine.cn',
           },
+          props: {
+            align: 'left',
+          },
+        });
+
+        // 面包屑
+        skeleton.add({
+          area: 'topArea',
+          type: 'Widget',
+          name: 'Breadcrumb',
+          content: (
+            <>
+              {getCookie('categoryName') === 'undefined' ? (
+                <Breadcrumb>
+                  <Breadcrumb.Item style={{ color: 'black', fontSize: '16px' }}>
+                    {unescape(getCookie('appName'))}
+                  </Breadcrumb.Item>
+                  <Breadcrumb.Item style={{ color: '#86888d', fontSize: '16px' }}>
+                    {getCookie('pageName')}
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+              ) : (
+                  <Breadcrumb>
+                    <Breadcrumb.Item style={{ color: 'black', fontSize: '16px' }}>
+                      {unescape(getCookie('appName'))}
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item
+                      style={{ color: 'black', fontSize: '16px' }}
+                      className="categoryName_less"
+                    >
+                      {getCookie('categoryName') === 'undefined'
+                        ? undefined
+                        : getCookie('categoryName')}
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item style={{ color: '#86888d', fontSize: '16px' }}>
+                      {getCookie('pageName')}
+                    </Breadcrumb.Item>
+                  </Breadcrumb>
+                )}
+            </>
+          ),
           props: {
             align: 'left',
           },
@@ -154,7 +194,7 @@ export default async function registerPlugins() {
   await plugins.register(setterRegistry);
 
   // 注册回退/前进
-  await plugins.register(UndoRedoPlugin);
+  // await plugins.register(UndoRedoPlugin);
 
   // 注册中英文切换
   await plugins.register(ZhEnPlugin);
@@ -165,20 +205,20 @@ export default async function registerPlugins() {
       async init() {
         const { skeleton } = ctx;
 
-        skeleton.add({
-          name: 'loadAssetsSample',
-          area: 'topArea',
-          type: 'Widget',
-          props: {
-            align: 'right',
-            width: 80,
-          },
-          content: (
-            <Button onClick={loadIncrementalAssets}>
-              异步加载资源
-            </Button>
-          ),
-        });
+        // skeleton.add({
+        //   name: 'loadAssetsSample',
+        //   area: 'topArea',
+        //   type: 'Widget',
+        //   props: {
+        //     align: 'right',
+        //     width: 80,
+        //   },
+        //   content: (
+        //     <Button onClick={loadIncrementalAssets}>
+        //       异步加载资源
+        //     </Button>
+        //   ),
+        // });
       },
     };
   };
@@ -200,8 +240,8 @@ export default async function registerPlugins() {
             align: 'right',
           },
           content: (
-            <Button onClick={() => saveSchema()}>
-              保存到本地
+            <Button onClick={ saveSchema}>
+              保存
             </Button>
           ),
         });
@@ -213,30 +253,101 @@ export default async function registerPlugins() {
             align: 'right',
           },
           content: (
-            <Button onClick={() => resetSchema()}>
+            <Button onClick={ resetSchema}>
               重置页面
             </Button>
           ),
         });
+        skeleton.add({
+          name: 'history',
+          area: 'topArea',
+          type: 'Widget',
+          props: {
+            align: 'right',
+          },
+          content: publishVersion,
+          index: 1,
+        });
         hotkey.bind('command+s', (e) => {
           e.preventDefault();
-          saveSchema();
+          saveSchema()
         });
       },
     };
   }
+
+  const dataSourceSample = (ctx: ILowCodePluginContext) => {
+    return {
+      name: 'dataSourceSample',
+      dep: [],
+      // 插件对外暴露的数据和方法
+      exports: function exports() {
+        return {};
+      },
+      async init() {
+        const { skeleton, hotkey } = ctx;
+        const item = skeleton.add({
+          name: 'dataSourceSample',
+          area: 'leftArea',
+          type: 'PanelDock',
+          props: {
+            icon: 'shujuyuan',
+            description: '数据源',
+          },
+          panelProps: {
+            width: '800px', // title: '源码面板',
+          },
+          content: AxiosDataSource,
+        });
+        item?.disable?.();
+        ctx.project.onSimulatorRendererReady(function () {
+          item.enable();
+        });
+      },
+    };
+  };
+
+  const versionManager = (ctx: ILowCodePluginContext) => {
+    return {
+      name: 'versionManager',
+      async init() {
+        const { skeleton, hotkey } = ctx;
+
+        const item = skeleton.add({
+          name: 'versionManager',
+          area: 'topArea',
+          type: 'Widget',
+          props: {
+            align: 'right',
+          },
+          content: VersionManager,
+        });
+        // item?.disable?.();
+        // ctx.project.onSimulatorRendererReady(function () {
+        //   item.enable();
+        // });
+      },
+    };
+  };
+
   saveSample.pluginName = 'saveSample';
   await plugins.register(saveSample);
 
   DataSourcePanePlugin.pluginName = 'DataSourcePane';
   await plugins.register(DataSourcePanePlugin);
 
+  dataSourceSample.pluginName = 'dataSourceSample';
+  await plugins.register(dataSourceSample);
+
+  versionManager.pluginName = 'versionManager';
+  await plugins.register(versionManager);
+
   CodeEditor.pluginName = 'CodeEditor';
   await plugins.register(CodeEditor);
 
   // 注册出码插件
-  CodeGenPlugin.pluginName = 'CodeGenPlugin';
-  await plugins.register(CodeGenPlugin);
+  // CodeGenPlugin.pluginName = 'CodeGenPlugin';
+  // await plugins.register(CodeGenPlugin);
 
   const previewSample = (ctx: ILowCodePluginContext) => {
     return {
@@ -251,7 +362,7 @@ export default async function registerPlugins() {
             align: 'right',
           },
           content: (
-            <Button type="primary" onClick={() => preview()}>
+            <Button type="primary" onClick={ preview}>
               预览
             </Button>
           ),

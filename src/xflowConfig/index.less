@@ -1,0 +1,232 @@
+@body-bg: #fff;
+@primaryColor: #10B3B3;
+@primaryHoverColor: #2fc2bd;
+@light-border: 1px solid #d9d9d9;
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+  color: @primaryColor;
+  &:hover{
+    color: @primaryHoverColor;
+  }
+}
+.ant-tabs-tab:hover{
+  color: @primaryHoverColor;
+}
+.ant-tabs-ink-bar, .ant-btn-primary{
+  background: @primaryColor;
+}
+
+.ant-btn-primary{
+  border-color: @primaryColor;
+  background: @primaryColor;
+  &:hover{
+    border-color: @primaryHoverColor;
+    background: @primaryHoverColor;
+  }
+}
+
+.flow-user-custom-clz {
+  position: relative;
+  height: 100%;
+  border: @light-border;
+  .xflow-x6-canvas {
+    background: @body-bg;
+  }
+
+  .xflow-node-dnd-panel-node-wrapper {
+    .xflow-dnd-node {
+      width: 190px;
+    }
+  }
+
+  .xflow-canvas-dnd-node-tree {
+    border-right: @light-border;
+  }
+
+  .xflow-workspace-toolbar-top {
+    background: #F4FFFF;
+  }
+
+  .xflow-workspace-toolbar-bottom {
+    text-align: center;
+    background: #fff;
+    border-top: @light-border;
+  }
+  .xflow-toolbar{
+    background: #F4FFFF;
+  }
+}
+
+.xflow-modal-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.flowchart-demo {
+  .__dumi-default-previewer-actions {
+    border: 0;
+  }
+}
+
+.xflow-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding: 0 40px;
+  background: #fff;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+  .xflow-header-left{
+    .ant-btn{
+      display: flex;
+      align-items: center;
+      padding: 0;
+      color: #2b2b2b;
+      font-size: 14px;
+      &:hover{
+        color: @primaryColor;
+        background: #fff;
+        .anticon{
+          color: @primaryColor;
+        }
+      }
+      .anticon{
+        font-size: 25px;
+        color: #aaa;
+      }
+    }
+  }
+  .xflow-header-right{
+    .xflow-start-btn{
+      border: 1px solid @primaryColor;
+      background: @primaryColor;
+    }
+  }
+}
+.xflow-save-btn{
+  color: #10B3B3;
+  border: 1px solid @primaryColor;
+  background: #10b3b319;
+}
+
+.xflow-toolbar{
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  height: 54px;
+  .xflow-toolbar-divider{
+    height: 28px;
+    border-left-color: #F0F0F0;
+  }
+  .xflow-highlight-icon{
+    color: @primaryColor;
+    font-size: 18px;
+  }
+  .ant-btn{
+    .anticon{
+      vertical-align: top;
+    }
+    img{
+      vertical-align: top;
+    }
+    .anticon + span, img + span{
+      margin-left: 8px;
+      vertical-align: top;
+    }
+  }
+}
+
+.xflow-editor-panel-collpase{
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 10 !important;
+  background: rgba(0, 0, 0, .5) !important;
+  .xflow-workspace-panel{
+    width: 600px !important;
+    height: 100%;
+    right: 0;
+  }
+  // .xflow-editor-panel-collpase-icon{
+  //   display: none;
+  // }
+}
+.flow-node-config{
+  width: 100%;
+  padding: 0 20px;
+}
+.config-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 75px;
+  font-size: 14px;
+  .config-close{
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
+.event-select{
+  max-width: 120px;
+  min-width: 120px;
+}
+.event-rule-setting{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 5px;
+  .event-rul-select.ant-select-disabled{
+    max-width: 130px;
+    min-width: 130px;
+    .ant-select-selector{
+      color: #000;
+      background: #fff;
+      cursor: pointer;
+      input{
+        cursor: pointer;
+      }
+    }
+    .ant-select-arrow{
+      cursor: pointer;
+    }
+  }
+}
+.node-form-wrapper{
+  height: calc(100% - 75px);
+  padding-right: 15px;
+  overflow-y: auto;
+  .ant-form-item-label{
+    display: flex;
+    align-items: center;
+    &::before{
+      content: '';
+      width: 3px;
+      height: 14px;
+      border-radius: 3px;
+      background: #10B3B3;
+      margin-right: 8px;
+    }
+  }
+}
+.node-form-footer{
+  position: fixed;
+  width: 535px;
+  bottom: 0;
+  padding: 21px 0;
+  align-items: center;
+  border-top: 1px solid #f0f0f0;
+  background: #fff;
+}
+
+.personnel-form{
+  display: flex;
+  align-items: center;
+  height: 32px;
+
+}

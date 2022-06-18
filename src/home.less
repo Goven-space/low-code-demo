@@ -1,0 +1,138 @@
+@import '~antd/dist/antd.css';
+
+@theme-color: #0fb3b4;
+@theme-hover-color: #2fc2bd;
+
+html,
+body,
+#ice-container,
+.layout-wrapper {
+  height: 100%;
+}
+.ant-layout-header{
+  padding: 4px 50px 5px 10px !important;
+}
+
+.layout-wrapper {
+  .layout-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: @theme-color;
+    .logo {
+      padding-left: 200px;
+      color: #fff;
+      background: url('./assets/logo-w.png') no-repeat left 6px;
+
+      &::before {
+        content: '';
+        height: 30px;
+        border-left: 1px solid #fff;
+        margin-right: 15px;
+      }
+    }
+  }
+  .layout-body {
+    width: 100%;
+    margin: 0 auto;
+    .layout-content{
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+  .footer-wrapper{
+    p{
+        margin: 0;
+        text-align: center;
+    }
+}
+}
+.next-btn {
+  background: #0fb3b4 !important;
+}
+.next-btn-normal {
+  background: none !important;
+}
+.next-pagination-item {
+  background: #fff;
+}
+.next-current {
+  background: #0fb3b4 !important;
+}
+.next-pagination-display {
+  .em {
+    color: #0fb3b4;
+  }
+}
+.ant-menu-item{
+    &:hover{
+        color:@theme-hover-color
+    }
+}
+.ant-menu-item-selected {
+  background: #0fb3b4 !important;
+  color: #fff;
+  &:hover{
+      color: #fff;
+  }
+  .anticon{
+      color:#fff
+  }
+  .ant-menu-title-content {
+    color: #fff;
+  }
+}
+
+.header-btn{
+  padding:0 10px;
+  height:36px;
+  line-height:36px;
+  background: @theme-color ;
+  border: none;
+  color: #fff;
+  font-size:14px;
+  &:hover{
+      background: @theme-hover-color ;
+  }
+}
+.header-btn-mywork{
+  padding:0 10px;
+  height:36px;
+  line-height:36px;
+  background: @theme-color ;
+  border: none ;
+  color: #fff;
+  font-size:14px;
+  &:hover{
+    background: @theme-hover-color ;
+  }
+}
+
+.ant-menu-light .ant-menu-item:hover{
+  color:@theme-hover-color !important
+}
+
+.next-pagination-display{
+  & em{
+    color: #0fb3b4;
+  }
+}
+
+.next-checkbox-wrapper.checked > .next-checkbox > .next-checkbox-inner{
+  background: #0fb3b4 !important;
+}
+.next-checkbox-wrapper.indeterminate > .next-checkbox > .next-checkbox-inner{
+  background: #0fb3b4 !important;
+}
+.ant-menu-submenu-active{
+  color: #0fb3b4 !important;
+}
+.ant-menu-light .ant-menu-item-active{
+  color: none;
+}
+.ant-menu-light .ant-menu-item-active{
+  color: #0fb3b4 !important;
+}
+.ant-menu-light .ant-menu-submenu-title:hover{
+  color: #0fb3b4 !important;
+}
+

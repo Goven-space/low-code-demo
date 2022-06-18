@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>低代码平台</title>
+    <link rel="icon" href="./restcloud.ico" />
+    <link href="./css/processDesign.css" rel="stylesheet" />
+    <!-- 低代码引擎的页面主题样式，可以替换为 theme-lowcode-dark -->
+    <link href="./assets/variables.css" rel="stylesheet" />
+    <link href="./assets/next.var.min.css" rel="stylesheet" />
+    <!-- 低代码引擎的页面框架样式 -->
+    <link rel="stylesheet" href="./assets/engine-core.css" />
+    <!-- 低代码引擎官方扩展的样式 -->
+    <link rel="stylesheet" href="./assets/engine-ext.css" />
+
+    <!-- React，可替换为 production 包 -->
+    <script src="./assets/react.production.min.js"></script>
+    <!-- React DOM，可替换为 production 包 -->
+    <script src="./assets/react-dom.production.min.js"></script>
+    <!-- React 向下兼容，预防物料层的依赖 -->
+    <script src="./assets/prop-types.js"></script>
+    <script src="./assets/index.js"></script>
+    <!-- lodash，低代码编辑器的依赖 -->
+    <script src="./assets/lodash.min.js"></script>
+    <!-- 日期处理包，Fusion Next 的依赖 -->
+    <script src="./assets/moment.min.js"></script>
+    <!-- Fusion Next 的主包，低代码编辑器的依赖 -->
+    <script src="./assets/next.min.js"></script>
+    <!-- 低代码引擎的主包 -->
+    <script crossorigin="anonymous" src="./assets/engine-core.js"></script>
+    <!-- 低代码引擎官方扩展的主包 -->
+    <script crossorigin="anonymous" src="./assets/engine-ext.js"></script>
+    <script>
+      window.schemaJson = {
+        componentName: 'Page',
+        id: 'node_dockcviv8fo1',
+        props: {
+          ref: 'outerView',
+          style: {
+            height: '100%',
+          },
+        },
+        fileName: '/',
+        dataSource: {
+          list: [
+            {
+              type: 'fetch',
+              isInit: true,
+              options: {
+                params: {},
+                method: 'GET',
+                isCors: true,
+                timeout: 5000,
+                headers: {},
+                uri: 'mock/info.json',
+              },
+              id: 'info',
+            },
+          ],
+        },
+        state: {
+          text: {
+            type: 'JSExpression',
+            value: '"outer"',
+          },
+          isShowDialog: {
+            type: 'JSExpression',
+            value: 'false',
+          },
+        },
+        css: 'body {\n  font-size: 12px;\n}\n\n.button {\n  width: 100px;\n  color: #ff00ff\n}',
+        lifeCycles: {
+          componentDidMount: {
+            type: 'JSFunction',
+            value: "function componentDidMount() {\n  console.log('did mount');\n}",
+          },
+          componentWillUnmount: {
+            type: 'JSFunction',
+            value: "function componentWillUnmount() {\n  console.log('will unmount');\n}",
+          },
+        },
+        methods: {
+          testFunc: {
+            type: 'JSFunction',
+            value: "function testFunc() {\n  console.log('test func');\n}",
+          },
+          onClick: {
+            type: 'JSFunction',
+            value: 'function onClick() {\n  this.setState({\n    isShowDialog: true\n  });\n}',
+          },
+          closeDialog: {
+            type: 'JSFunction',
+            value: 'function closeDialog() {\n  this.setState({\n    isShowDialog: false\n  });\n}',
+          },
+        },
+        originCode:
+          'class LowcodeComponent extends Component {\n  state = {\n    "text": "outer",\n    "isShowDialog": false\n  }\n  componentDidMount() {\n    console.log(\'did mount\');\n  }\n  componentWillUnmount() {\n    console.log(\'will unmount\');\n  }\n  testFunc() {\n    console.log(\'test func\');\n  }\n  onClick() {\n    this.setState({\n      isShowDialog: true\n    })\n  }\n  closeDialog() {\n    this.setState({\n      isShowDialog: false\n    })\n  }\n}',
+        hidden: false,
+        title: '',
+        isLocked: false,
+        condition: true,
+        conditionGroup: '',
+        children: [
+          {
+            componentName: 'Form',
+            id: 'node_ocl3ttzqas2',
+            props: {
+              layout: 'horizontal',
+              labelCol: {
+                span: 2,
+                offset: 0,
+              },
+              wrapperCol: {
+                span: 22,
+                offset: 0,
+              },
+            },
+            hidden: false,
+            title: '',
+            isLocked: false,
+            condition: true,
+            conditionGroup: '',
+          },
+        ],
+      };
+    </script>
+  </head>
+
+  <body>
+    <!-- <div id="lce-container"></div> -->
+    <div id="processDesign"></div>
+    <script type="text/javascript" src="./js/processDesign.js"></script>
+  </body>
+</html>

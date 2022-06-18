@@ -1,0 +1,85 @@
+.myApp-wrapper{  
+    width:100%;
+    font-size:16px;
+    p,ul,li{
+        margin:0;
+        padding:0;
+    }
+    .container{
+        margin:9px;
+        padding:25px;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+    .myApp-tool-bar{
+        display:flex;
+        justify-content: flex-start;
+        align-items: center;
+        
+        input{
+            width:200px;
+        }
+        .myApp-title{
+            font-size:16px;
+        }
+    }
+    .myApp-list{
+       overflow:auto;
+       margin: 0;
+        &>li{
+            float: left;
+            padding:30px 50px;
+            list-style-type: none;
+        }
+        .myApp-item{
+            display:inline-flex;
+            flex-direction: column ;
+            justify-content: flex-start;
+            align-items: center;
+            width:150px;
+            height:150px;
+            padding:20px;
+            border-radius: 10px;
+            background-color: #fff;
+            border:none;
+            cursor: pointer;
+            &:hover{
+                box-shadow: 0px 2px 8px rgba(7, 0, 2, 0.521)
+            }
+            .myApp-icon{
+                width: 54px;
+                height: 54px;
+                line-height: 54px;
+                background: linear-gradient(180deg, #81E79E 0%, #19B975 100%);
+                border-radius: 14px;
+                &>img{
+                    width:28px;
+                    height:28px;
+                }
+            }
+            p{
+                margin-top:15px;
+                font-size: 18px;
+                font-family: PingFangSC-Medium, PingFang SC;
+                font-weight: 500;
+                color: #2B2B2B;
+            }
+        }
+    }
+}
+.appList-title{
+    font-size: 16px;
+}
+.appList-icon{
+    display: inline-block;
+    width:24px;
+    height:24px;
+    line-height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    background-image: -webkit-linear-gradient(#82E89E, #18B875);
+    &>img{
+        width:16px;
+        height:16px;
+    }
+}

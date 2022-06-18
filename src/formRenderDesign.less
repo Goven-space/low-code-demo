@@ -1,0 +1,44 @@
+@import '~antd/dist/antd.less';
+
+@theme-color: #0fb3b4;
+@theme-hover-color: #2fc2bd;
+
+.ant-btn-primary{
+    border-color: @theme-color;
+    background: @theme-color;
+    &:hover{
+        border-color: @theme-hover-color;
+        background: @theme-hover-color;
+    }
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: @theme-color;
+}
+
+.ant-tabs-ink-bar{
+    background: @theme-color;
+}
+
+.ant-radio-checked .ant-radio-inner, .ant-checkbox-checked .ant-checkbox-inner{
+    border-color: @theme-color;
+    &::after{
+        background: @theme-color;
+    }
+}
+.ant-checkbox-checked .ant-checkbox-inner{
+    background-color: @theme-color;
+}
+
+.ant-switch-checked{
+    background-color: @theme-color;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before{
+    border-color: @theme-color;
+}
+
+.ant-picker-today-btn{
+    color: @theme-color;
+}
+
+

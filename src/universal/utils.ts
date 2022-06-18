@@ -2,6 +2,22 @@ import { material, project } from '@alilc/lowcode-engine';
 import { filterPackages } from '@alilc/lowcode-plugin-inject'
 import { Message, Dialog } from '@alifd/next';
 import { TransformStage } from '@alilc/lowcode-types';
+import { baseURL } from '../api';
+
+
+export const getUrlSearch = (field: string) => {
+  const url = window.location.search.replace('?', '');
+  const params = url.split('&');
+  const item = params.filter((o) => o.match(`${field}=`) !== null);
+  if (item.length) {
+    return item[0].replace(`${field}=`, '');
+  } else {
+    return undefined;
+  }
+};
+
+const BaseURL = baseURL;
+const path = getUrlSearch('id');
 
 export const loadIncrementalAssets = () => {
   material?.onChangeAssets(() => {
@@ -145,28 +161,66 @@ export const loadIncrementalAssets = () => {
   });
 };
 
-export const preview = (scenarioName: string = 'index') => {
-  saveSchema(scenarioName);
+// export const preview = (scenarioName: string = 'index') => {
+//   saveSchema(scenarioName);
+//   setTimeout(() => {
+//     const search = location.search ? `${location.search}&scenarioName=${scenarioName}` : `?scenarioName=${scenarioName}`;
+//     window.open(`./preview.html${search}`);
+//   }, 500);
+// };
+export const preview = () => {
+  saveSchema();
   setTimeout(() => {
-    const search = location.search ? `${location.search}&scenarioName=${scenarioName}` : `?scenarioName=${scenarioName}`;
-    window.open(`./preview.html${search}`);
+    window.open(`./preview.html?id=${path}`, '_blank');
+    /* window.location.href = ``; */
   }, 500);
+
 };
 
-export const saveSchema = async (scenarioName: string = 'index') => {
-  setProjectSchemaToLocalStorage(scenarioName);
+export const formPreview = () => {
+  saveSchema();
+  setTimeout(() => {
+    window.open(`./formProcess.html?id=${path}`, '_blank');
+    /* window.location.href = ``; */
+  }, 500);
 
-  await setPackgesToLocalStorage(scenarioName);
-  // window.localStorage.setItem(
-  //   'projectSchema',
-  //   JSON.stringify(project.exportSchema(TransformStage.Save))
-  // );
-  // const packages = await filterPackages(material.getAssets().packages);
-  // window.localStorage.setItem(
-  //   'packages',
-  //   JSON.stringify(packages)
-  // );
-  Message.success('成功保存到本地');
+};
+
+export const saveSchema = async () => {
+  let saveData = JSON.stringify(project.exportSchema());
+  const identitytoken = window.localStorage.getItem('identitytoken');
+  if (window.location.href.indexOf('processDesign') == -1) {
+    const pageValue = JSON.parse(localStorage.getItem('pageInfo'));
+    fetch(`${BaseURL}/rest/core/lowcode/page/config/save`, {
+      method: 'post',
+      headers: {
+        identitytoken: identitytoken || '',
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({ ...pageValue, pageConfigJson: saveData }),
+    }).then((response: Response): any => {
+      if (response.ok === true) {
+        Message.success('保存成功!');
+      } else {
+        Message.error('保存失败!');
+      }
+    });
+  } else {
+    fetch(`${BaseURL}/rest/bpm/form/save`, {
+      method: 'post',
+      headers: {
+        identitytoken: identitytoken || '',
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      body: JSON.stringify({ orUnId: path, formConfigJson: saveData }),
+    }).then((response: Response): any => {
+      if (response.ok === true) {
+        Message.success('保存成功!');
+      } else {
+        Message.error('保存失败!');
+      }
+    });
+  }
 };
 
 export const resetSchema = async (scenarioName: string = 'index') => {
@@ -182,101 +236,93 @@ export const resetSchema = async (scenarioName: string = 'index') => {
         },
       })
     })
-  } catch(err) {
+  } catch (err) {
     return
-  }
-
-  // 除了「综合场景」，其他场景没有默认 schema.json，这里构造空页面
-  if (scenarioName !== 'index') {
-    window.localStorage.setItem(
-      getLSName(scenarioName),
-      JSON.stringify({
-        componentsTree: [{ componentName: 'Page', fileName: 'sample' }],
-        componentsMap: material.componentsMap,
-        version: '1.0.0',
-        i18n: {},
-      })
-    );
-    project.getCurrentDocument()?.importSchema({ componentName: 'Page', fileName: 'sample' });
-    project.simulatorHost?.rerender();
-    Message.success('成功重置页面');
-    return;
   }
 
   let schema;
   try {
-    schema = await request('./schema.json')
-  } catch(err) {
+    schema = window.schemaJson;
+  } catch (err) {
     schema = {
       componentName: 'Page',
       fileName: 'sample',
-    }
+    };
   }
 
   window.localStorage.setItem(
-    getLSName('index'),
+    'projectSchema',
     JSON.stringify({
       componentsTree: [schema],
       componentsMap: material.componentsMap,
       version: '1.0.0',
       i18n: {},
-    })
+    }),
   );
 
   project.getCurrentDocument()?.importSchema(schema);
   project.simulatorHost?.rerender();
   Message.success('成功重置页面');
-}
+};
 
-const getLSName = (scenarioName: string, ns: string = 'projectSchema') => `${scenarioName}:${ns}`;
-
-export const getProjectSchemaFromLocalStorage = (scenarioName: string) => {
-  if (!scenarioName) {
-    console.error('scenarioName is required!');
-    return;
+export const getPageSchema = async (
+  type: number,
+  id?: string,
+  mode?: string,
+  flag: string = 'config',
+) => {
+  /* const schema = JSON.parse(
+  window.localStorage.getItem('projectSchema') || '{}'
+); */
+  const identitytoken = window.localStorage.getItem('identitytoken');
+  if (!identitytoken) {
+    // window.location.href = '/login'
   }
-  return JSON.parse(window.localStorage.getItem(getLSName(scenarioName)) || '{}');
-}
-
-const setProjectSchemaToLocalStorage = (scenarioName: string) => {
-  if (!scenarioName) {
-    console.error('scenarioName is required!');
-    return;
+  let url = '';
+  const urlPath = path || id;
+  let value;
+  if (urlPath) {
+    if (flag === 'config') {
+      if (window.location.href.indexOf('processDesign') == -1) {
+        url = `${BaseURL}/rest/core/lowcode/page/config/get/${urlPath}`;
+      } else {
+        url = `${BaseURL}/rest/bpm/form/get/${urlPath}`;
+      }
+    } else if (flag === 'form') {
+      url = `${BaseURL}/rest/bpm/form/get/${urlPath}`;
+    } else {
+      url = `${BaseURL}/rest/core/lowcode/page/version/get/published/${urlPath}`;
+    }
+    value = await fetch(url, {
+      method: 'get',
+      headers: {
+        identitytoken: identitytoken || '',
+      },
+    });
   }
-  window.localStorage.setItem(
-    getLSName(scenarioName),
-    JSON.stringify(project.exportSchema(TransformStage.Save))
-  );
-}
+  const data = await value?.json();
 
-const setPackgesToLocalStorage = async (scenarioName: string) => {
-  if (!scenarioName) {
-    console.error('scenarioName is required!');
-    return;
+  const initData = window.schemaJson;
+
+  // const pageSchema = schema?.componentsTree?.[0];
+  if (data?.data) {
+    console.log(data)
+    localStorage.setItem('pageInfo', JSON.stringify(data.data));
+    if (data.data.pageConfigJson) {
+      if (type) {
+        return JSON.parse(data.data.pageConfigJson || '{}');
+      }
+      return JSON.parse(data.data.pageConfigJson || '{}')?.componentsTree?.[0];
+    } else if (data.data.formConfigJson) {
+      if (type) {
+        return JSON.parse(data.data.formConfigJson || '{}');
+      }
+      return JSON.parse(data.data.formConfigJson || '{}')?.componentsTree?.[0];
+    } else {
+      return initData;
+    }
   }
-  const packages = await filterPackages(material.getAssets().packages);
-  window.localStorage.setItem(
-    getLSName(scenarioName, 'packages'),
-    JSON.stringify(packages),
-  );
-}
-
-export const getPackagesFromLocalStorage = (scenarioName: string) => {
-  if (!scenarioName) {
-    console.error('scenarioName is required!');
-    return;
-  }
-  return JSON.parse(window.localStorage.getItem(getLSName(scenarioName, 'packages')) || '{}');
-}
-
-export const getPageSchema = async (scenarioName: string = 'index') => {
-  const pageSchema = getProjectSchemaFromLocalStorage(scenarioName).componentsTree?.[0]
-
-  if (pageSchema) {
-    return pageSchema;
-  }
-
-  return await request('./schema.json');
+  return initData;
 };
 
 function request(
@@ -294,7 +340,6 @@ function request(
     }
     fetch(dataAPI, {
       method,
-      credentials: 'include',
       headers,
       body: data,
       ...otherProps,
@@ -318,6 +363,7 @@ function request(
             }
           case 400:
           case 401:
+            window.location.href = './login.html';
           case 403:
           case 404:
           case 406:

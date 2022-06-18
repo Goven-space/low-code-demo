@@ -4,25 +4,23 @@ import { Loading } from '@alifd/next';
 import { buildComponents, assetBundle, AssetLevel, AssetLoader } from '@alilc/lowcode-utils';
 import ReactRenderer from '@alilc/lowcode-react-renderer';
 import { injectComponents } from '@alilc/lowcode-plugin-inject';
-import { createFetchHandler } from '@alilc/lowcode-datasource-fetch-handler'
+import { getPageSchema } from './universal/utils';
+import { createAxiosFetchHandler } from './plugins/requestAxios'
+import { material } from '@alilc/lowcode-engine';
+import { filterPackages } from '@alilc/lowcode-plugin-inject'
+import assets from '../public/assets.json'
+import './preview.less'
 
-import { getProjectSchemaFromLocalStorage, getPackagesFromLocalStorage } from './universal/utils';
-
-const getScenarioName = function() {
-  if (location.search) {
-   return new URLSearchParams(location.search.slice(1)).get('scenarioName') || 'index'
-  }
-  return 'index';
-}
-
-const SamplePreview = () => {
+const SamplePreview = () => { 
   const [data, setData] = useState({});
 
   async function init() {
-    const scenarioName = getScenarioName();
-    const packages = getPackagesFromLocalStorage(scenarioName);
-    const projectSchema = getProjectSchemaFromLocalStorage(scenarioName);
+     const data = await getPageSchema(1);
+     console.log(data)
+    const packages = await filterPackages(assets.packages)
+    const projectSchema = data || {};
     const { componentsMap: componentsMapArray, componentsTree } = projectSchema;
+    console.log(componentsMapArray)
     const componentsMap: any = {};
     componentsMapArray.forEach((component: any) => {
       componentsMap[component.componentName] = component;
@@ -30,7 +28,7 @@ const SamplePreview = () => {
     const schema = componentsTree[0];
 
     const libraryMap = {};
-    const libraryAsset = [];
+    const libraryAsset:[] = [];
     packages.forEach(({ package: _package, library, urls, renderUrls }) => {
       libraryMap[_package] = library;
       if (renderUrls) {
@@ -46,7 +44,6 @@ const SamplePreview = () => {
     const assetLoader = new AssetLoader();
     await assetLoader.load(libraryAsset);
     const components = await injectComponents(buildComponents(libraryMap, componentsMap));
-
     setData({
       schema,
       components,
@@ -57,8 +54,9 @@ const SamplePreview = () => {
 
   if (!schema || !components) {
     init();
-    return <Loading fullScreen />;
+    return <Loading fullScreen color='#0fb3b4' />;
   }
+
 
   return (
     <div className="lowcode-plugin-sample-preview">
@@ -68,7 +66,7 @@ const SamplePreview = () => {
         components={components}
         appHelper={{
           requestHandlersMap: {
-            fetch: createFetchHandler()
+            axios: createAxiosFetchHandler()
           }
         }}
       />

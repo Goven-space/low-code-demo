@@ -20,28 +20,37 @@ module.exports = ({ onGetWebpackConfig }) => {
       },
     });
 
-    scenarioNames.forEach(name => {
-      const hasTsx = fs.existsSync(join(`./src/scenarios/${name}/index.tsx`));
-      config.merge({
+    config.merge({
         entry: {
-          [name]: hasTsx ? require.resolve(`./src/scenarios/${name}/index.tsx`) : require.resolve(`./src/scenarios/${name}/index.ts`),
+          index: require.resolve('./src/index.ts'),
+          preview: require.resolve('./src/preview.tsx'),
+          home: require.resolve('./src/home.tsx'),
+          workbench: require.resolve('./src/workbench.tsx'),
+          workbenchDesign: require.resolve('./src/workbenchDesign.tsx'),
+          login: require.resolve('./src/login.tsx'),
+          formRender: require.resolve('./src/formRender.tsx'),
+          formRenderDesign: require.resolve('./src/formRenderDesign.tsx'),
+          xflow: require.resolve('./src/xflow.tsx'),
+          process: require.resolve('./src/process.tsx'),
+          processDesign: require.resolve('./src/processDesign.tsx'),
+          formProcess: require.resolve("./src/formProcess.tsx")
         },
       });
       config
-        .plugin(name)
+        .plugin('index')
         .use(HtmlWebpackPlugin, [
           {
             inject: false,
             minify: false,
             templateParameters: {
-              scenario: name,
+              scenario: 'index',
               version,
             },
             template: require.resolve('./public/index.ejs'),
-            filename: `${name}.html`,
+            filename: 'index.html',
           },
         ]);
-    })
+      
 
     config
       .plugin('preview')
@@ -52,6 +61,117 @@ module.exports = ({ onGetWebpackConfig }) => {
           },
           template: require.resolve('./public/preview.html'),
           filename: 'preview.html',
+        },
+      ]);
+
+    config
+      .plugin('home')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/home.html'),
+          filename: 'home.html',
+        },
+      ]);
+    config
+      .plugin('workbench')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/workbench.html'),
+          filename: 'workbench.html',
+        },
+      ]);
+    config
+      .plugin('workbenchDesign')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/workbenchDesign.html'),
+          filename: 'workbenchDesign.html',
+        },
+      ]);
+    config
+      .plugin('login')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/login.html'),
+          filename: 'login.html',
+        },
+      ]);
+    config
+      .plugin('formRender')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/formRender.html'),
+          filename: 'formRender.html',
+        },
+      ]);
+    config
+      .plugin('formRenderDesign')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/formRenderDesign.html'),
+          filename: 'formRenderDesign.html',
+        },
+      ]);
+    config
+      .plugin('xflow')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/xflow.html'),
+          filename: 'xflow.html',
+        },
+      ]);
+    config
+      .plugin('process')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/process.html'),
+          filename: 'process.html',
+        },
+      ]);
+    config
+      .plugin('processDesign')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/processDesign.html'),
+          filename: 'processDesign.html',
+        },
+      ]);
+    config
+      .plugin('formProcess')
+      .use(HtmlWebpackPlugin, [
+        {
+          inject: false,
+          templateParameters: {
+          },
+          template: require.resolve('./public/formProcess.html'),
+          filename: 'formProcess.html',
         },
       ]);
 

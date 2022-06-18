@@ -1,0 +1,98 @@
+{
+    "packages": [
+        {
+            "package": "moment",
+            "version": "2.24.0",
+            "urls": ["/assets/moment.min.js"],
+            "library": "moment"
+        },
+        {
+            "package": "lodash",
+            "library": "_",
+            "urls": ["/assets/lodash.min.js"]
+        },
+        {
+            "package": "@ant-design/icons",
+            "version": "4.7.0",
+            "urls": ["/assets/index.umd.min.js"],
+            "library": "icons"
+        },
+        {
+            "package": "antd",
+            "version": "4.19.5",
+            "urls": ["/assets/antd.min-form.js", "/assets/antd.min.css"],
+            "library": "antd"
+        },
+        {
+            "title": "fusion组件库",
+            "package": "@alifd/next",
+            "version": "1.24.18",
+            "urls": ["/assets/next.min.css", "/assets/next-with-locales.min.js"],
+            "library": "Next"
+        },
+        {
+            "title": "NextTable",
+            "package": "NextTable",
+            "version": "1.0.1",
+            "urls": ["/assets/next-table.js", "/assets/next-table.css"],
+            "library": "NextTable"
+        },
+        {
+            "package": "rc-cus-form",
+            "version": "0.1.5",
+            "library": "rcCusForm",
+            "urls": [
+                "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/render/default/view.js",
+                "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/render/default/view.css"
+            ],
+            "editUrls": [
+                "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/view.js",
+                "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/view.css"
+            ],
+            "advancedUrls": {
+                "default": [
+                    "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/render/default/view.js",
+                    "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/render/default/view.css"
+                ]
+            },
+            "advancedEditUrls": {}
+        }
+    ],
+    "components": [
+        {
+            "exportName": "RcCusFormMeta",
+            "npm": {
+                "package": "rc-cus-form",
+                "version": "0.1.5"
+            },
+            "url": "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/meta.js",
+            "urls": {
+                "default": "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/meta.js"
+            },
+            "advancedUrls": {
+                "default": [
+                    "https://unpkg.com/rc-cus-form@0.1.5/build/lowcode/meta.js"
+                ]
+            }
+        }
+    ],
+    "sort": {
+        "groupList": ["精选组件", "原子组件", "谷云组件"],
+        "categoryList": [
+            "基础元素",
+            "布局容器类",
+            "表格类",
+            "表单详情类",
+            "帮助类",
+            "对话框类",
+            "业务类",
+            "通用",
+            "引导",
+            "信息输入",
+            "信息展示",
+            "信息反馈"
+        ]
+    },
+    "groupList": ["精选组件", "原子组件", "谷云组件"],
+    "ignoreComponents": {}
+}
