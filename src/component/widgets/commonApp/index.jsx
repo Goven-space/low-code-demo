@@ -143,7 +143,7 @@ const CommonApp = (props) => {
                         : <span className="myApp-title">{label}</span>
                     }
                 </div>
-                <Divider></Divider>
+                <Divider style={{margin:0}} />
                 <ul className="myApp-list">
                     {list?.map((item) => {
                         return (

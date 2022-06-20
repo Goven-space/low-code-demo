@@ -72,12 +72,15 @@ const FormApproval = (props, ref) => {
     const addCommonRemark = () => {
         const Remark = form.getFieldValue('Remark')
         setApprovavlRemark({ Remark }).then(res => {
-            console.log(res)
+            const { status, data } = res
+            if (status === 200) {
+                message.success(data.msg)
+            }
         })
     }
 
     const onRemarkSelected = (value) => {
-        console.log(value)
+        value?.label && form.setFieldsValue({ Remark: value.label })
     }
 
     return (

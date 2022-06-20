@@ -417,6 +417,7 @@ const AxiosDataSource: FunctionComponent = (props) => {
                 rowKey={({id}) => id}
                 size="small" 
                 bordered
+                scroll={{y: 500 }}
                 pagination={false} 
               />
             </div>

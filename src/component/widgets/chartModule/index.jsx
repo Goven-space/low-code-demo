@@ -65,7 +65,7 @@ const ChartModule = (props) => {
             schema.current.properties[$id.current].width = widthPre
             // 拖拉改变高度
             let newHeight = event.clientY - yDiff + height;
-            newHeight = newHeight < 550 ? '550px' : newHeight + 'px';
+            newHeight = newHeight < 600 ? '600px' : newHeight + 'px';
             wrapper.current.style.height = newHeight;
             schema.current.properties[$id.current].height = newHeight
             parentRef.current.setValue(schema.current)

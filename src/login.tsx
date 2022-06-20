@@ -16,17 +16,18 @@ const Login: FunctionComponent = () => {
         userLogin({
             ...values
         }).then((res) => {
-            const { identitytoken, userId, userName, state, msg,appKey} = res.data;
+            const { identitytoken, userId, userName, state, msg,appkey} = res.data;
             if(state){
+                // console.log(res.data);
                 // localStorage.setItem("serverHost", values.serverHost);
                 localStorage.setItem("identitytoken", identitytoken);
                 localStorage.setItem("userId", userId);
                 localStorage.setItem("userName", userName);
-                localStorage.setItem("appKey",appKey)
+                localStorage.setItem("appkey",appkey)
                 setCookie("identitytoken", identitytoken);
                 setCookie("userId", userId);
                 setCookie("userName", userName);
-                setCookie("appKey",appKey)
+                setCookie("appkey",appkey)
                 window.location.href= `./workbench.html`
             } else {
                 message.error(msg)

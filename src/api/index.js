@@ -22,16 +22,16 @@ export const service = axios.create({
 
 service.interceptors.request.use(
   function (config) {
-    if (config.url !== '/rest/core/auth/login') {
+    if (!config.url.includes('/bpm/login')) {
       const identitytoken = localStorage.getItem('identitytoken');
-      const appKey = localStorage.getItem("appKey")
+      const appkey = localStorage.getItem("appkey")
       if (identitytoken) {
         config.headers.identitytoken = identitytoken;
       } else {
         // window.location.href="./login.html"
       }
-      if(appKey){
-        config.headers.appKey = appKey
+      if(appkey){
+        config.headers.appkey = appkey
       }
       
     }
